@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Nirvana</string>
+    <string name="sign_up">sign up</string>
+    <string name="already_account">already have an account?</string>
+    <string name="first_name">first name</string>
+    <string name="last_name">last name</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="repeat_password">repeat password</string>
 </resources>
