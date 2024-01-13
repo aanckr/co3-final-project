@@ -13,16 +13,20 @@
         android:id="@+id/imageView"
         android:layout_width="154dp"
         android:layout_height="156dp"
+        android:layout_marginTop="50dp"
         android:elevation="10dp"
         android:src="@drawable/mountains"
-        app:shapeAppearanceOverlay="@style/RoundedSquare"
-        tools:layout_editor_absoluteX="128dp"
-        tools:layout_editor_absoluteY="50dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="250dp"
         android:layout_height="48dp"
+        android:layout_marginTop="130dp"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#8ABDC8B7"
         android:elevation="10dp"
@@ -30,13 +34,16 @@
         android:inputType="textEmailAddress"
         android:textAlignment="center"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="292dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="250dp"
         android:layout_height="48dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#8ABDC8B7"
         android:elevation="10dp"
@@ -44,30 +51,36 @@
         android:inputType="textPassword"
         android:textAlignment="center"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="392dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
         android:id="@+id/continue_btn"
         android:layout_width="120dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="13dp"
         android:backgroundTint="#718C83"
         android:elevation="10dp"
         android:stateListAnimator="@null"
-        android:text="@string/sign_up"
+        android:text="@string/log_in"
         android:textColor="#BDC8B7"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="589dp" />
+        app:layout_constraintBottom_toTopOf="@+id/already_account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/already_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/already_account"
+        android:layout_marginBottom="50dp"
+        android:text="@string/no_account"
         android:textColor="#BDC8B7"
-        tools:layout_editor_absoluteX="127dp"
-        tools:layout_editor_absoluteY="662dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

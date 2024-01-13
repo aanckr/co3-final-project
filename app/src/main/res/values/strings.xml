@@ -10,4 +10,5 @@
     <string name="email">email</string>
     <string name="password">password</string>
     <string name="repeat_password">repeat password</string>
+    <string name="no_account">no account yet?</string>
 </resources>
