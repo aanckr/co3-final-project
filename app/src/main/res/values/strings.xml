@@ -1,4 +1,8 @@
 <resources>
+    <string name="app_name">Travel Buddy</string>
+    <string name="intro">Here is your all-in-one travel companion for creating unforgettable journeys.</string>
+    <string name="log_in">log in</string>
+    <string name="or_sign_up">or sign up here</string>
     <string name="sign_up">sign up</string>
     <string name="already_account">already have an account?</string>
     <string name="first_name">first name</string>
