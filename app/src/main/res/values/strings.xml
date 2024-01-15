@@ -10,4 +10,7 @@
     <string name="email">email</string>
     <string name="password">password</string>
     <string name="repeat_password">repeat password</string>
+    <string name="menu">Menu</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
 </resources>

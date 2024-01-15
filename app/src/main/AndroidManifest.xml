@@ -16,11 +16,6 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".NavActivity"
-            android:exported="false"
-            android:label="@string/title_activity_nav"
-            android:theme="@style/Theme.Nirvana.NoActionBar" />
-        <activity
             android:name=".SignUp"
             android:exported="false" />
         <activity
