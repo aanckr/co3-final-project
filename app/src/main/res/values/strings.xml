@@ -13,4 +13,8 @@
     <string name="menu">Menu</string>
     <string name="open">open</string>
     <string name="close">close</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="experiences">experiences</string>
+    <string name="adventures">adventures</string>
+    <string name="activities">activities</string>
 </resources>
