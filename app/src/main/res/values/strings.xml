@@ -10,6 +10,7 @@
     <string name="email">email</string>
     <string name="password">password</string>
     <string name="repeat_password">repeat password</string>
+    <string name="no_account">no account yet?</string>
     <string name="save">save</string>
     <string name="old_password">old password</string>
     <string name="new_password">new password</string>
