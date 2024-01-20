@@ -9,14 +9,16 @@
 
     <TextView
         android:id="@+id/headline"
-        android:layout_width="114dp"
-        android:layout_height="95dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginBottom="53dp"
         android:fontFamily="@font/barlow_bold"
         android:text="@string/app_name"
-        android:textColor="#243549"
+        android:textColor="@color/headline"
         android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,9 +28,9 @@
         android:layout_height="60dp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="156dp"
-        android:fontFamily="@font/barlow"
+        android:fontFamily="@font/barlow_medium"
         android:text="@string/intro"
-        android:textColor="#647265"
+        android:textColor="@color/dark_green"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,11 +41,12 @@
         android:layout_height="60dp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="260dp"
-        android:backgroundTint="#FBEDDA"
+        android:backgroundTint="@color/light_beige"
         android:elevation="10dp"
+        android:fontFamily="@font/barlow_medium"
         android:stateListAnimator="@null"
         android:text="@string/log_in"
-        android:textColor="#BDC8B7"
+        android:textColor="@color/light_green"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,8 +57,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="4dp"
+        android:fontFamily="@font/barlow_medium"
         android:text="@string/or_sign_up"
-        android:textColor="#FBEDDA"
+        android:textColor="@color/light_beige"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/log_in_btn" />
