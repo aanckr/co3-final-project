@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //standard colors
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    //background colors
+    <color name="start_background">#DBBD9B</color>
+    <color name="background">#FBEDDA</color>
+
+    //text colors
+    <color name="headline">#243549</color>
+    <color name="dark_green">#647265</color>
+    <color name="light_green">#BDC8B7</color>
+    <color name="light_beige">#FBEDDA</color>
+
+    //button colors
+    <color name="button_color">#718C83</color>
+
+    //text field colors
+    <color name="text_field_color">#8ABDC8B7</color>
 </resources>
