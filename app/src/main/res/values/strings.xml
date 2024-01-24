@@ -15,4 +15,17 @@
     <string name="old_password">old password</string>
     <string name="new_password">new password</string>
     <string name="change_your_password">change your password</string>
+    <string name="menu">Menu</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="experiences">experiences</string>
+    <string name="adventures">adventures</string>
+    <string name="activities">activities</string>
+    <string name="what_you_want">what do you want?</string>
+    <string name="view_all">view all</string>
+    <string name="bike">riding a bike</string>
+    <string name="hiking">hiking</string>
+    <string name="sightseeing">sightseeing</string>
+    <string name="skiing">skiing</string>
 </resources>
