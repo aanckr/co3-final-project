@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="my collections"
+        android:id="@+id/nav_collections"/>
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:iconTint="#243549"
+        android:title="contact us"
+        android:id="@+id/nav_contact_us"/>
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:iconTint="#243549"
+        android:title="log out"
+        android:id="@+id/nav_log_out"
+        />
+</menu>
