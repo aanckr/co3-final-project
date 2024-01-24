@@ -30,7 +30,7 @@
             android:paddingBottom="5dp"
             android:text="name"
             android:textAlignment="viewStart"
-            android:textColor="#BDC8B7"
+            android:textColor="@color/light_green"
             android:textSize="16sp" />
 
 
@@ -44,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
+                android:tint="@color/button_color"
                 app:srcCompat="@drawable/baseline_location" />
 
             <TextView
@@ -52,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/barlow_medium"
                 android:text="location"
-                android:textColor="#BDC8B7"
+                android:textColor="@color/light_green"
                 android:textSize="14sp" />
         </LinearLayout>
 
