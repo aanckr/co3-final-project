@@ -18,12 +18,14 @@
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".SignUp"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUp"
+            android:name=".StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

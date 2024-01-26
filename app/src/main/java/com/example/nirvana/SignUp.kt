@@ -1,5 +1,6 @@
 package com.example.nirvana
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -35,7 +36,7 @@ class SignUp : AppCompatActivity() {
 
                 database = FirebaseDatabase.getInstance().getReference("Users")
                 val user = User(firstName, lastName, email, password, repeatPassword)
-                database.child(email).setValue(user).addOnSuccessListener {
+                database.child(firstName).setValue(user).addOnSuccessListener {
                     binding.firstName.text.clear()
                     binding.lastName.text.clear()
                     binding.email.text.clear()
@@ -43,6 +44,7 @@ class SignUp : AppCompatActivity() {
                     binding.repeatPassword.text.clear()
 
                     Toast.makeText(this, "User added", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, HomeActivity::class.java))
 
                 }.addOnFailureListener {
 
