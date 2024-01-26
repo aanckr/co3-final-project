@@ -18,13 +18,14 @@ class SignUp : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.continueBtn.setOnClickListener {
+            val username = binding.username.text.toString()
             val firstName = binding.firstName.text.toString()
             val lastName = binding.lastName.text.toString()
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
             val repeatPassword = binding.repeatPassword.text.toString()
 
-            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()){
+            if (username.isEmpty()|| firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()){
 
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
 
@@ -35,8 +36,9 @@ class SignUp : AppCompatActivity() {
             } else {
 
                 database = FirebaseDatabase.getInstance().getReference("Users")
-                val user = User(firstName, lastName, email, password, repeatPassword)
-                database.child(firstName).setValue(user).addOnSuccessListener {
+                val user = User(username, firstName, lastName, email, password, repeatPassword)
+                database.child(username).setValue(user).addOnSuccessListener {
+                    binding.username.text.clear()
                     binding.firstName.text.clear()
                     binding.lastName.text.clear()
                     binding.email.text.clear()
