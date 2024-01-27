@@ -7,11 +7,9 @@ import android.location.Location
 import android.os.Bundle
 import android.text.Editable
 import android.view.MenuItem
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -41,7 +39,6 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var searchView: SearchView
     private lateinit var binding: ActivityHomeBinding
     private lateinit var database: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -151,6 +148,14 @@ class HomeActivity : AppCompatActivity() {
 
     private fun saveActivitiesInDB(response: Array<com.amadeus.resources.PointOfInterest>, latitude: Double, longitude: Double) {
         Toast.makeText(this, "size: ${response.size}", Toast.LENGTH_LONG).show()
+        database = FirebaseDatabase.getInstance().getReference("Activities")
+        database.setValue(null).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "Activities deleted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+            }
+        }
         for (activity in response) {
             val name = activity.name
             val category = activity.category
@@ -161,14 +166,6 @@ class HomeActivity : AppCompatActivity() {
             val id = UUID.randomUUID().toString()
             val distance = calculateDistance(latitude, longitude, activityLatitude, activityLongitude)
 
-            database = FirebaseDatabase.getInstance().getReference("Activities")
-            database.setValue(null).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Activities deleted", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
-                }
-            }
             val activity = Activities(name, category, rank, tags, activityLatitude, activityLongitude, id, distance)
             database.child(name).setValue(activity).addOnSuccessListener {
                 Toast.makeText(this, "Activity added", Toast.LENGTH_SHORT).show()
@@ -203,12 +200,16 @@ class HomeActivity : AppCompatActivity() {
                 binding.linearHorizontallyActivities.removeAllViews()
                 for (activity in sortedActivities) {
                     val activityBinding = ActivityScrollViewBinding.inflate(layoutInflater)
-                    activityBinding.itemName.text = activity.name
+                    val text = activity.name?.let {
+                        if (it.length > 23) it.substring(0, 23) + "..." else it
+                    }
+                    activityBinding.itemName.text = text
                     activityBinding.itemLocation.text = activity.distance.toString() + " km"
                     activityBinding.activityImg.setImageResource(R.drawable.mountains)
 
                     binding.linearHorizontallyActivities.addView(activityBinding.root)
                 }
+                Toast.makeText(this, "Activity added srollview", Toast.LENGTH_SHORT).show()
             }
         }
     }
