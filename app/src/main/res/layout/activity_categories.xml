@@ -60,7 +60,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/bike_icon"
+                android:id="@+id/eating_icon"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
@@ -87,7 +87,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/hiking_icon"
+                android:id="@+id/shopping_icon"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
