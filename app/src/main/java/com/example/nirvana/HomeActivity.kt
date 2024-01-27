@@ -15,9 +15,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.amadeus.Amadeus
+import com.amadeus.Params
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.Locale
 
@@ -92,8 +98,9 @@ class HomeActivity : AppCompatActivity() {
                             val addresses = geocoder.getFromLocation(latitude, longitude, 1)
                             if (!addresses.isNullOrEmpty()) {
                                 val cityName = addresses[0].locality
-                                searchView.setQuery(cityName, false)
+                                searchView.setQuery(latitude.toString(), false)
                                 Toast.makeText(this, "Stadt: $cityName, Latitude: $latitude, Longitude: $longitude", Toast.LENGTH_LONG).show()
+                                getActivities(latitude, longitude)
                             } else {
                                 Toast.makeText(this, "Adresse nicht gefunden", Toast.LENGTH_LONG).show()
                             }
@@ -110,7 +117,28 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun getActivities(latitude: Double, longitude: Double) {
+        val amadeus = Amadeus.builder("HDFV1svGcpeg0kMymEmPVGkU4JNf5h7v", "dWVYpb8M8wIm1hzc").build()
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    amadeus.referenceData.locations.pointsOfInterest.get(
+                        Params.with("latitude", 52.5162)
+                            .and("longitude", 13.3777)
+                            .and("radius", 6)
+                    )
+                }
+                Toast.makeText(this@HomeActivity, response[0].name, Toast.LENGTH_LONG).show()
+                saveActivitiesInDB(response)
+            }catch (e: Exception) {
+                Toast.makeText(this@HomeActivity, "Fehler beim Abrufen der Aktivitäten", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 
+    private fun saveActivitiesInDB(response: Array<com.amadeus.resources.PointOfInterest>) {
+        
+    }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
