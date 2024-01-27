@@ -3,6 +3,7 @@ package com.example.nirvana
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.example.nirvana.databinding.ActivitySignUpBinding
 import com.google.firebase.database.DatabaseReference
@@ -53,6 +54,11 @@ class SignUp : AppCompatActivity() {
                     Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+        val alreadyAccountTextView: View = findViewById(R.id.already_account)
+        alreadyAccountTextView.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -69,12 +69,12 @@
         android:text="@string/log_in"
         android:textColor="@color/light_green"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/already_account"
+        app:layout_constraintBottom_toTopOf="@+id/no_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/already_account"
+        android:id="@+id/no_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"

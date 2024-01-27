@@ -3,6 +3,7 @@ package com.example.nirvana
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.example.nirvana.databinding.ActivityLoginBinding
 import com.example.nirvana.databinding.ActivitySignUpBinding
@@ -29,6 +30,12 @@ class LoginActivity : AppCompatActivity() {
             }else{
                 readData(username, password)
             }
+        }
+
+        val alreadyAccountTextView: View = findViewById(R.id.no_account)
+        alreadyAccountTextView.setOnClickListener {
+            val intent = Intent(this, SignUp::class.java)
+            startActivity(intent)
         }
     }
 
