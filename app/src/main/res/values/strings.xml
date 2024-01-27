@@ -19,14 +19,10 @@
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="welcome_back">Welcome Back</string>
-    <string name="experiences">experiences</string>
-    <string name="adventures">adventures</string>
-    <string name="activities">activities</string>
     <string name="what_you_want">what do you want?</string>
     <string name="view_all">view all</string>
-    <string name="bike">riding a bike</string>
-    <string name="hiking">hiking</string>
+    <string name="eating">eating</string>
+    <string name="shopping">shopping</string>
     <string name="sightseeing">sightseeing</string>
-    <string name="skiing">skiing</string>
-    <string name="select_location">select a location</string>
+    <string name="set_location">set your location</string>
 </resources>

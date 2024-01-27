@@ -65,13 +65,13 @@
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/baseline_bike_icon" />
+                app:srcCompat="@drawable/baseline_restaurant" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/barlow_bold"
-                android:text="@string/bike"
+                android:text="@string/eating"
                 android:textAlignment="center"
                 android:textColor="@color/light_green"
                 android:textSize="12sp">
@@ -92,13 +92,13 @@
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/baseline_hiking_icon" />
+                app:srcCompat="@drawable/baseline_shopping_bag" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/barlow_bold"
-                android:text="@string/hiking"
+                android:text="@string/shopping"
                 android:textAlignment="center"
                 android:textColor="@color/light_green"
                 android:textSize="12sp">
@@ -130,34 +130,6 @@
                 android:textAlignment="center"
                 android:textColor="@color/light_green"
                 android:textSize="12sp"></TextView>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/ski_icon"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/baseline_skiing_icon" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/barlow_bold"
-                android:text="@string/skiing"
-                android:textAlignment="center"
-                android:textColor="@color/light_green"
-                android:textSize="12sp">
-
-            </TextView>
 
         </LinearLayout>
 
