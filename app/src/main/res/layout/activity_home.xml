@@ -84,7 +84,7 @@
             app:layout_constraintTop_toBottomOf="@+id/greeting">
 
             <EditText
-                android:id="@+id/textView"
+                android:id="@+id/textViewLocation"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
@@ -118,6 +118,7 @@
             app:layout_constraintTop_toBottomOf="@+id/location">
 
             <LinearLayout
+                android:id="@+id/linear_horizontally_activities"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">

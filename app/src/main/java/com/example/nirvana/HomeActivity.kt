@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.text.Editable
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
@@ -18,11 +19,13 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.amadeus.Amadeus
 import com.amadeus.Params
 import com.example.nirvana.databinding.ActivityHomeBinding
+import com.example.nirvana.databinding.ActivityScrollViewBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlin.math.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -30,7 +33,8 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.Locale
 import java.util.*
-import kotlin.math.sqrt
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 
 class HomeActivity : AppCompatActivity() {
@@ -43,12 +47,11 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_home)
+        setContentView(binding.root)
 
         val drawerLayout : DrawerLayout = findViewById(R.id.drawerLayout)
         val navView : NavigationView = findViewById(R.id.nav_view)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        searchView = findViewById(R.id.searchView)
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -60,6 +63,8 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        updateScrollView()
 
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
@@ -79,8 +84,7 @@ class HomeActivity : AppCompatActivity() {
             true
         }
 
-        val myLocation = findViewById<ImageView>(R.id.my_location)
-        myLocation.setOnClickListener {
+        binding.myLocation.setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
 
@@ -106,7 +110,8 @@ class HomeActivity : AppCompatActivity() {
                             val addresses = geocoder.getFromLocation(latitude, longitude, 1)
                             if (!addresses.isNullOrEmpty()) {
                                 val cityName = addresses[0].locality
-                                searchView.setQuery(latitude.toString(), false)
+                                binding.textViewLocation.text = Editable.Factory.getInstance().newEditable(cityName)
+
                                 Toast.makeText(this, "Stadt: $cityName, Latitude: $latitude, Longitude: $longitude", Toast.LENGTH_LONG).show()
                                 getActivities(latitude, longitude)
                             } else {
@@ -136,8 +141,8 @@ class HomeActivity : AppCompatActivity() {
                             .and("radius", 20)
                     )
                 }
-                Toast.makeText(this@HomeActivity, response[0].name, Toast.LENGTH_LONG).show()
                 saveActivitiesInDB(response, latitude, longitude)
+                updateScrollView()
             }catch (e: Exception) {
                 Toast.makeText(this@HomeActivity, "Fehler beim Abrufen der Aktivitäten", Toast.LENGTH_LONG).show()
             }
@@ -154,14 +159,56 @@ class HomeActivity : AppCompatActivity() {
             val activityLatitude = activity.geoCode.latitude
             val activityLongitude = activity.geoCode.longitude
             val id = UUID.randomUUID().toString()
-            val distance = sqrt((latitude - activityLatitude) * (latitude - activityLatitude) + (longitude - activityLongitude) * (longitude - activityLongitude))
+            val distance = calculateDistance(latitude, longitude, activityLatitude, activityLongitude)
 
             database = FirebaseDatabase.getInstance().getReference("Activities")
+            database.setValue(null).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Activities deleted", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
             val activity = Activities(name, category, rank, tags, activityLatitude, activityLongitude, id, distance)
             database.child(name).setValue(activity).addOnSuccessListener {
                 Toast.makeText(this, "Activity added", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
                 Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+        val earthRadius = 6371.0 // in km
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLon = Math.toRadians(lon2 - lon1)
+        val originLat = Math.toRadians(lat1)
+        val destinationLat = Math.toRadians(lat2)
+
+        val a = sin(dLat / 2).pow(2) +
+                sin(dLon / 2).pow(2) * cos(originLat) * cos(destinationLat)
+        val c = 2 * asin(sqrt(a))
+
+        val distance = earthRadius * c
+
+        return BigDecimal(distance).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+    }
+    private fun updateScrollView(){
+        database = FirebaseDatabase.getInstance().getReference("Activities")
+        database.get().addOnSuccessListener {
+
+            if (it.exists()) {
+                val activities = it.children.map { it.getValue(Activities::class.java)!! }
+                val sortedActivities = activities.sortedBy { it.distance }
+                binding.linearHorizontallyActivities.removeAllViews()
+                for (activity in sortedActivities) {
+                    val activityBinding = ActivityScrollViewBinding.inflate(layoutInflater)
+                    activityBinding.itemName.text = activity.name
+                    activityBinding.itemLocation.text = activity.distance.toString() + " km"
+                    activityBinding.activityImg.setImageResource(R.drawable.mountains)
+
+                    binding.linearHorizontallyActivities.addView(activityBinding.root)
+                }
             }
         }
     }
