@@ -15,4 +15,14 @@
     <string name="old_password">old password</string>
     <string name="new_password">new password</string>
     <string name="change_your_password">change your password</string>
+    <string name="menu">Menu</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="what_you_want">what do you want?</string>
+    <string name="view_all">view all</string>
+    <string name="eating">eating</string>
+    <string name="shopping">shopping</string>
+    <string name="sightseeing">sightseeing</string>
+    <string name="set_location">set your location</string>
 </resources>

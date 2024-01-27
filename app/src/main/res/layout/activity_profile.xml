@@ -36,7 +36,7 @@
         app:srcCompat="@drawable/profile" />
 
     <EditText
-        android:id="@+id/first_name"
+        android:id="@+id/firstName"
         android:layout_width="250dp"
         android:layout_height="48dp"
         android:layout_marginTop="80dp"
@@ -47,14 +47,14 @@
         android:hint="@string/first_name"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/last_name"
+        app:layout_constraintBottom_toTopOf="@+id/lastName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
-        android:id="@+id/last_name"
+        android:id="@+id/lastName"
         android:layout_width="250dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_name" />
+        app:layout_constraintTop_toBottomOf="@+id/firstName" />
 
     <EditText
         android:id="@+id/email"
@@ -83,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/last_name" />
+        app:layout_constraintTop_toBottomOf="@+id/lastName" />
 
     <TextView
         android:id="@+id/change_password"
