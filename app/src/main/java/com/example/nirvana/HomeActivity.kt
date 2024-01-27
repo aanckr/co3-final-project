@@ -1,6 +1,7 @@
 package com.example.nirvana
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -49,7 +50,6 @@ class HomeActivity : AppCompatActivity() {
         val drawerLayout : DrawerLayout = findViewById(R.id.drawerLayout)
         val navView : NavigationView = findViewById(R.id.nav_view)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
@@ -206,6 +206,9 @@ class HomeActivity : AppCompatActivity() {
                     activityBinding.itemName.text = text
                     activityBinding.itemLocation.text = activity.distance.toString() + " km"
                     activityBinding.activityImg.setImageResource(R.drawable.mountains)
+                    activityBinding.root.setOnClickListener{
+                        //navigationToActivity(activity.name)
+                    }
 
                     binding.linearHorizontallyActivities.addView(activityBinding.root)
                 }
@@ -213,6 +216,14 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+
+    /*private fun navigationToActivity(activityName: String?) {
+        val intent = Intent(this, RecommendationActivity::class.java).apply {
+            putExtra(activityName)
+        }
+        startActivity(intent)
+    }*/
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
