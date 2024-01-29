@@ -1,16 +1,17 @@
 package com.example.nirvana
 
-import android.Manifest
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.text.Editable
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -74,11 +75,18 @@ class HomeActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Clicked Contact Us", Toast.LENGTH_SHORT).show()
                 }
                 R.id.nav_log_out -> {
-                    // for now:
-                    Toast.makeText(applicationContext, "Clicked Log Out", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, StartActivity::class.java)
+                    startActivity(intent)
                 }
             }
             true
+        }
+
+        // Profile
+        val profileImg: View = findViewById(R.id.profile_img)
+        profileImg.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
         }
 
         binding.myLocation.setOnClickListener {
