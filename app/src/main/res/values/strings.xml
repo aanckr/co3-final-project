@@ -26,4 +26,6 @@
     <string name="shopping">shopping</string>
     <string name="sightseeing">sightseeing</string>
     <string name="set_location">set your location</string>
+    <string name="allow_notification">allow notification</string>
+    <string name="use_location">use location</string>
 </resources>
