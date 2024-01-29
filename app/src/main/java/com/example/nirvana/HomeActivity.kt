@@ -90,6 +90,31 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.bikeIcon.setOnClickListener {
+            val intent = Intent(this, ExploringActivity::class.java).apply {
+                putExtra("category", "RESTAURANT")
+            }
+            startActivity(intent)
+        }
+        binding.hikingIcon.setOnClickListener {
+            val intent = Intent(this, ExploringActivity::class.java).apply {
+                putExtra("category", "SHOPPING")
+            }
+            startActivity(intent)
+        }
+        binding.sightseeingIcon.setOnClickListener {
+            val intent = Intent(this, ExploringActivity::class.java).apply {
+                putExtra("category", "SIGHTS")
+            }
+            startActivity(intent)
+        }
+        binding.viewAll.setOnClickListener {
+            val intent = Intent(this, ExploringActivity::class.java).apply {
+                putExtra("category", "ALL")
+            }
+            startActivity(intent)
+        }
+
         binding.myLocation.setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
@@ -134,7 +159,6 @@ class HomeActivity : AppCompatActivity() {
                         val latitude = location.latitude
                         val longitude = location.longitude
 
-                        // Geocoder initialisieren
                         val geocoder = Geocoder(this, Locale.getDefault())
 
                         try {
@@ -241,8 +265,14 @@ class HomeActivity : AppCompatActivity() {
                     activityBinding.itemName.text = text
                     activityBinding.itemLocation.text = activity.distance.toString() + " km"
                     activityBinding.activityImg.setImageResource(R.drawable.mountains)
+                    when (activity.category) {
+                        "SIGHTS" -> activityBinding.activityImg.setImageResource(R.drawable.sight)
+                        "RESTAURANT" -> activityBinding.activityImg.setImageResource(R.drawable.restaurant)
+                        "SHOPPING" -> activityBinding.activityImg.setImageResource(R.drawable.shopping)
+                        else -> activityBinding.activityImg.setImageResource(R.drawable.mountains)
+                    }
                     activityBinding.root.setOnClickListener{
-                        //navigationToActivity(activity.name)
+                        navigationToActivity(activity.name)
                     }
 
                     binding.linearHorizontallyActivities.addView(activityBinding.root)
@@ -252,12 +282,12 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    /*private fun navigationToActivity(activityName: String?) {
+    private fun navigationToActivity(activityName: String?) {
         val intent = Intent(this, RecommendationActivity::class.java).apply {
-            putExtra(activityName)
+            putExtra("activity", activityName)
         }
         startActivity(intent)
-    }*/
+    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".SettingsActivity">
+
+    <LinearLayout
+        android:id="@+id/allow_location"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/roundstyle"
+        android:backgroundTint="@color/text_field_color"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/allow_notifications"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/location_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/barlow_medium"
+            android:padding="10dp"
+            android:text="@string/use_location"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Switch
+            android:id="@+id/location_switch"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@color/text_field_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/allow_notifications"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="350dp"
+        android:background="@drawable/roundstyle"
+        android:backgroundTint="@color/text_field_color"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/notification_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/barlow_medium"
+            android:padding="10dp"
+            android:text="@string/allow_notification"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Switch
+            android:id="@+id/notification_switch"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp" />
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#FBEDDA"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@color/button_color"
+        app:itemTextColor="#FBEDDA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu"
+        tools:ignore="VisualLintBottomNav" />
+</androidx.constraintlayout.widget.ConstraintLayout>
