@@ -1,13 +1,14 @@
 package com.example.nirvana
 
+import android.health.connect.datatypes.DistanceRecord
+
 data class Activities(
-    var name: String,
-    var category: String,
-    var rank: Int,
-    var tags: List<String>,
-    var latitude: Double,
-    var longitude: Double,
-    var id: String
-) {
-    constructor() : this("", "", 0, listOf<String>(), 0.0, 0.0, "")
-}
+    var name: String? = null,
+    var category: String? = null,
+    var rank: Int? = null,
+    var tags: List<String>? = null,
+    var latitude: Double? = null,
+    var longitude: Double? = null,
+    var id: String? = null,
+    var distance: Double? = null
+)
