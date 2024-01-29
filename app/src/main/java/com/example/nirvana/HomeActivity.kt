@@ -129,11 +129,9 @@ class HomeActivity : AppCompatActivity() {
         bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    startActivity(Intent(this, HomeActivity::class.java))
-                    finish()
+                    //Already in home, do nothing
                     return@setOnNavigationItemSelectedListener true
                 }
-                /*
                 R.id.explore -> {
                     startActivity(Intent(this, ExploringActivity::class.java))
                     finish()
@@ -144,7 +142,6 @@ class HomeActivity : AppCompatActivity() {
                     finish()
                     return@setOnNavigationItemSelectedListener true
                 }
-                */
                 else -> false
             }
         }

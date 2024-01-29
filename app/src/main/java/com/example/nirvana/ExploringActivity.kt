@@ -1,10 +1,12 @@
 package com.example.nirvana
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nirvana.databinding.ActivityExploringBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -17,6 +19,28 @@ class ExploringActivity : AppCompatActivity() {
         setContentView(binding.root)
         val category = intent.getStringExtra("category")
         updateRecyclerView(category)
+
+        // Bottom navigation bar
+        val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNav.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.explore -> {
+                    //Already in explore, do nothing
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    finish()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> false
+            }
+        }
     }
     private fun updateRecyclerView(category: String?) {
         database = FirebaseDatabase.getInstance().getReference("Activities")
