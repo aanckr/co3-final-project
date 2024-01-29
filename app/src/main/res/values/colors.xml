@@ -19,4 +19,8 @@
 
     //text field colors
     <color name="text_field_color">#8ABDC8B7</color>
+
+    //rating bar colors
+    <color name="rating_bar_selected">#DBBD9B</color>
+    <color name="rating_bar_unselected">#E4CDB4</color>
 </resources>
