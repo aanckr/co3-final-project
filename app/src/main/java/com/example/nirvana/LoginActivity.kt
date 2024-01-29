@@ -46,6 +46,10 @@ class LoginActivity : AppCompatActivity() {
                 val user = it.getValue(User::class.java)
                 if(user?.username == username && user?.password == password){
                     Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+                    val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("username", username)
+                    editor.apply()
                     startActivity(Intent(this, HomeActivity::class.java))
                 }else{
                     Toast.makeText(this, "Incorrect data", Toast.LENGTH_SHORT).show()
