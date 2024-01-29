@@ -56,8 +56,6 @@ class ExploringActivity : AppCompatActivity() {
                 val adapter = ActivitiesAdapter(sortedActivities, this)
                 binding.recyclerList.adapter = adapter
                 binding.recyclerList.layoutManager = LinearLayoutManager(this)
-
-                Toast.makeText(this, "Activities added to RecyclerView", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "No activities found", Toast.LENGTH_SHORT).show()
             }
