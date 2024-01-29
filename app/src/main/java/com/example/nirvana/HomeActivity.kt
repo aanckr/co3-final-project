@@ -22,6 +22,7 @@ import com.example.nirvana.databinding.ActivityHomeBinding
 import com.example.nirvana.databinding.ActivityScrollViewBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -112,6 +113,29 @@ class HomeActivity : AppCompatActivity() {
 
             } else {
                 getLocation()
+            }
+        }
+
+        // Bottom navigation bar
+        val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNav.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    //Already in home, do nothing
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.explore -> {
+                    startActivity(Intent(this, ExploringActivity::class.java).apply {
+                        putExtra("category", "ALL") })
+                    finish()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    finish()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> false
             }
         }
     }
