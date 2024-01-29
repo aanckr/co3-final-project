@@ -48,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
         val drawerLayout : DrawerLayout = findViewById(R.id.drawerLayout)
         val navView : NavigationView = findViewById(R.id.nav_view)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        searchView = findViewById(R.id.searchView)
+        //searchView = findViewById(R.id.searchView)
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
