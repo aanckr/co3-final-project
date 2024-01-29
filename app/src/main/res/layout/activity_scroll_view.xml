@@ -8,6 +8,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -15,9 +16,9 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/activity_img"
-            android:layout_width="160dp"
-            android:layout_height="239dp"
-            android:src="@drawable/placeholder"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/mountains"
             app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
         <TextView
@@ -44,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:tint="@color/button_color"
+                app:tint="@color/button_color"
                 app:srcCompat="@drawable/baseline_location" />
 
             <TextView
