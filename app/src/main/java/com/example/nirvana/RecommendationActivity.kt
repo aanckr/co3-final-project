@@ -28,7 +28,8 @@ class RecommendationActivity : AppCompatActivity() {
                 }
 
                 R.id.explore -> {
-                    startActivity(Intent(this, ExploringActivity::class.java))
+                    startActivity(Intent(this, ExploringActivity::class.java).apply {
+                        putExtra("category", "ALL") })
                     finish()
                     return@setOnNavigationItemSelectedListener true
                 }
