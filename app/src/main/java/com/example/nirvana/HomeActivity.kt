@@ -7,7 +7,10 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.os.Looper
+import android.os.Handler
 import android.text.Editable
+import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -44,6 +47,9 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var binding: ActivityHomeBinding
     private lateinit var database: DatabaseReference
+    private val handler = Handler(Looper.getMainLooper())
+    private var runnable: Runnable? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -82,13 +88,13 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.bikeIcon.setOnClickListener {
+        binding.restaurantIcon.setOnClickListener {
             val intent = Intent(this, ExploringActivity::class.java).apply {
                 putExtra("category", "RESTAURANT")
             }
             startActivity(intent)
         }
-        binding.hikingIcon.setOnClickListener {
+        binding.shoppingIcon.setOnClickListener {
             val intent = Intent(this, ExploringActivity::class.java).apply {
                 putExtra("category", "SHOPPING")
             }
@@ -112,9 +118,28 @@ class HomeActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
 
             } else {
-                getLocation()
+                getLocationByLocation()
             }
         }
+
+        binding.textViewLocation.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                runnable?.let { handler.removeCallbacks(it) }
+                runnable = Runnable {
+                    if (s.toString().isNotEmpty()) {
+                        getLocationByName()
+                    } else {
+                        Toast.makeText(this@HomeActivity, "Please enter a location", Toast.LENGTH_LONG).show()
+                    }
+                }
+                handler.postDelayed(runnable!!, 2000)
+            }
+        })
 
         // Bottom navigation bar
         val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -140,7 +165,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun getLocation() {
+    private fun getLocationByLocation() {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.lastLocation
@@ -157,21 +182,38 @@ class HomeActivity : AppCompatActivity() {
                                 val cityName = addresses[0].locality
                                 binding.textViewLocation.text = Editable.Factory.getInstance().newEditable(cityName)
 
-                                Toast.makeText(this, "Stadt: $cityName, Latitude: $latitude, Longitude: $longitude", Toast.LENGTH_LONG).show()
                                 getActivities(latitude, longitude)
                             } else {
-                                Toast.makeText(this, "Adresse nicht gefunden", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "Address not found", Toast.LENGTH_LONG).show()
                             }
                         } catch (e: IOException) {
-                            Toast.makeText(this, "Geocoder-Dienst nicht verfügbar", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Geocoder service not available", Toast.LENGTH_LONG).show()
                         }
                     } else {
-                        Toast.makeText(this, "Standort nicht verfügbar", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Location not available", Toast.LENGTH_LONG).show()
                     }
                 }
                 .addOnFailureListener {
-                    Toast.makeText(this, "Fehler beim Abrufen des Standorts", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Error retrieving location", Toast.LENGTH_LONG).show()
                 }
+        }
+    }
+
+    private fun getLocationByName() {
+        val geocoder = Geocoder(this, Locale.getDefault())
+        val locationName = binding.textViewLocation.text.toString()
+        try {
+            val addresses = geocoder.getFromLocationName(locationName, 1)
+            if (!addresses.isNullOrEmpty()) {
+                val latitude = addresses[0].latitude
+                val longitude = addresses[0].longitude
+
+                getActivities(latitude, longitude)
+            } else {
+                Toast.makeText(this, "Address not found", Toast.LENGTH_LONG).show()
+            }
+        } catch (e: IOException) {
+            Toast.makeText(this, "Geocoder service not available", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -189,18 +231,15 @@ class HomeActivity : AppCompatActivity() {
                 saveActivitiesInDB(response, latitude, longitude)
                 updateScrollView()
             }catch (e: Exception) {
-                Toast.makeText(this@HomeActivity, "Fehler beim Abrufen der Aktivitäten", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@HomeActivity, "Error retrieving activities", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     private fun saveActivitiesInDB(response: Array<com.amadeus.resources.PointOfInterest>, latitude: Double, longitude: Double) {
-        Toast.makeText(this, "size: ${response.size}", Toast.LENGTH_LONG).show()
         database = FirebaseDatabase.getInstance().getReference("Activities")
         database.setValue(null).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Activities deleted", Toast.LENGTH_SHORT).show()
-            } else {
+            if (!task.isSuccessful) {
                 Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
             }
         }
@@ -217,7 +256,6 @@ class HomeActivity : AppCompatActivity() {
             database = FirebaseDatabase.getInstance().getReference("Activities")
             val activity = Activities(name, category, rank, tags, activityLatitude, activityLongitude, id, distance)
             database.child(name).setValue(activity).addOnSuccessListener {
-                Toast.makeText(this, "Activity added", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
                 Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
             }
@@ -267,7 +305,6 @@ class HomeActivity : AppCompatActivity() {
 
                     binding.linearHorizontallyActivities.addView(activityBinding.root)
                 }
-                Toast.makeText(this, "Activity added srollview", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -282,7 +319,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            getLocation()
+            getLocationByLocation()
         }
     }
 
