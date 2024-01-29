@@ -166,6 +166,7 @@ class HomeActivity : AppCompatActivity() {
             val id = UUID.randomUUID().toString()
             val distance = calculateDistance(latitude, longitude, activityLatitude, activityLongitude)
 
+            database = FirebaseDatabase.getInstance().getReference("Activities")
             val activity = Activities(name, category, rank, tags, activityLatitude, activityLongitude, id, distance)
             database.child(name).setValue(activity).addOnSuccessListener {
                 Toast.makeText(this, "Activity added", Toast.LENGTH_SHORT).show()
