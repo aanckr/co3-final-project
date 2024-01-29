@@ -67,14 +67,6 @@ class HomeActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_collections -> {
-                    // for now:
-                    Toast.makeText(applicationContext, "Clicked Collections", Toast.LENGTH_SHORT).show()
-                }
-                R.id.nav_contact_us -> {
-                    // for now:
-                    Toast.makeText(applicationContext, "Clicked Contact Us", Toast.LENGTH_SHORT).show()
-                }
                 R.id.nav_log_out -> {
                     val intent = Intent(this, StartActivity::class.java)
                     startActivity(intent)
@@ -257,10 +249,10 @@ class HomeActivity : AppCompatActivity() {
                 binding.linearHorizontallyActivities.removeAllViews()
                 for (activity in sortedActivities) {
                     val activityBinding = ActivityScrollViewBinding.inflate(layoutInflater)
-                    val text = activity.name?.let {
+                    val name = activity.name?.let {
                         if (it.length > 23) it.substring(0, 23) + "..." else it
                     }
-                    activityBinding.itemName.text = text
+                    activityBinding.itemName.text = name
                     activityBinding.itemLocation.text = activity.distance.toString() + " km"
                     activityBinding.activityImg.setImageResource(R.drawable.mountains)
                     when (activity.category) {

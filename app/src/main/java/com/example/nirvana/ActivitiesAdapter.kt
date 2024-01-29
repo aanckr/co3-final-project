@@ -27,7 +27,10 @@ class ActivitiesAdapter(private val activitiesList: List<Activities>, private va
 
     override fun onBindViewHolder(holder: ActivitiesViewHolder, position: Int) {
         val currentItem = activitiesList[position]
-        holder.textViewName.text = currentItem.name
+        val name = currentItem.name?.let {
+            if (it.length > 23) it.substring(0, 23) + "..." else it
+        }
+        holder.textViewName.text = name
         holder.textViewLocation.text = currentItem.distance.toString() + " km"
         holder.textViewRating.rating = currentItem.rank.toString().toFloat()
 

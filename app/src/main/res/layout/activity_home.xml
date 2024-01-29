@@ -95,6 +95,7 @@
                 android:elevation="10dp"
                 android:fontFamily="@font/barlow_medium"
                 android:hint="@string/set_location"
+                android:singleLine="true"
                 android:textAlignment="center" />
 
             <ImageView
