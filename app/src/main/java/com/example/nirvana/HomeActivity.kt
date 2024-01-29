@@ -66,14 +66,6 @@ class HomeActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_collections -> {
-                    // for now:
-                    Toast.makeText(applicationContext, "Clicked Collections", Toast.LENGTH_SHORT).show()
-                }
-                R.id.nav_contact_us -> {
-                    // for now:
-                    Toast.makeText(applicationContext, "Clicked Contact Us", Toast.LENGTH_SHORT).show()
-                }
                 R.id.nav_log_out -> {
                     val intent = Intent(this, StartActivity::class.java)
                     startActivity(intent)
