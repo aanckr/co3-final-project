@@ -28,4 +28,6 @@
     <string name="skiing">skiing</string>
     <string name="description">description</string>
     <string name="set_location">set your location</string>
+    <string name="allow_notification">allow notification</string>
+    <string name="use_location">use location</string>
 </resources>
