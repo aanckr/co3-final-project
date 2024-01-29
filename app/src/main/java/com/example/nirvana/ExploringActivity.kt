@@ -15,22 +15,31 @@ class ExploringActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityExploringBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        updateRecyclerView()
+        val category = intent.getStringExtra("category")
+        updateRecyclerView(category)
     }
-    private fun updateRecyclerView(){
+    private fun updateRecyclerView(category: String?) {
         database = FirebaseDatabase.getInstance().getReference("Activities")
         database.get().addOnSuccessListener {
             if (it.exists()) {
-                val activities = it.children.map { snap ->
-                    snap.getValue(Activities::class.java) ?: Activities()
+                val activities = it.children.mapNotNull { snap ->
+                    snap.getValue(Activities::class.java)
+                }.filter { activity ->
+                    category == "ALL" || activity.category == category
                 }
                 val sortedActivities = activities.sortedBy { it.distance }
-                val adapter = ActivitiesAdapter(sortedActivities)
+
+                val adapter = ActivitiesAdapter(sortedActivities, this)
                 binding.recyclerList.adapter = adapter
                 binding.recyclerList.layoutManager = LinearLayoutManager(this)
 
-                Toast.makeText(this, "Activity added srollview", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Activities added to RecyclerView", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "No activities found", Toast.LENGTH_SHORT).show()
             }
+        }.addOnFailureListener {
+            Toast.makeText(this, "Error fetching data", Toast.LENGTH_SHORT).show()
         }
     }
+
 }
