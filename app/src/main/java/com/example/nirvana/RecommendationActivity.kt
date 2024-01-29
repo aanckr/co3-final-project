@@ -14,7 +14,8 @@ class RecommendationActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recommendation)
+        binding = ActivityRecommendationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Bottom navigation bar
         val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -25,20 +26,22 @@ class RecommendationActivity : AppCompatActivity() {
                     finish()
                     return@setOnNavigationItemSelectedListener true
                 }
+
                 R.id.explore -> {
                     startActivity(Intent(this, ExploringActivity::class.java))
                     finish()
                     return@setOnNavigationItemSelectedListener true
                 }
+
                 R.id.settings -> {
                     startActivity(Intent(this, SettingsActivity::class.java))
                     finish()
                     return@setOnNavigationItemSelectedListener true
                 }
+
                 else -> false
-              
-        binding = ActivityRecommendationBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+            }
+        }
         val activityName = intent.getStringExtra("activity")
 
         database = FirebaseDatabase.getInstance().getReference("Activities")
@@ -53,13 +56,12 @@ class RecommendationActivity : AppCompatActivity() {
                 binding.location.text = activities[0].distance.toString() + " km"
                 binding.ratingBar.rating = activities[0].rank.toString().toFloat()
                 binding.descriptionText.text = activities[0].tags.toString()
-                when (activities[0].category){
+                when (activities[0].category) {
                     "SIGHTS" -> binding.activityImg.setImageResource(R.drawable.sight)
                     "RESTAURANT" -> binding.activityImg.setImageResource(R.drawable.restaurant)
                     "SHOPPING" -> binding.activityImg.setImageResource(R.drawable.shopping)
                     else -> binding.activityImg.setImageResource(R.drawable.mountains)
                 }
-
             }
         }
     }
