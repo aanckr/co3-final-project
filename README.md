@@ -63,7 +63,7 @@ The Nirvana App is designed to be a travel companion for planning and exploratio
 ## Development Process
 
 * October: Came up with a project idea
-* November: Started to design our mockup (_Nirvana.fig_ in our project folder
+* November: Started to design our mockup (_Nirvana.fig_ in our project folder)
 * December: _Because of exams and christmas break, we didn't work on the project_
 * January: Worked on coding the project
 
