@@ -68,9 +68,74 @@ The Nirvana App is designed to be a travel companion for planning and exploratio
 * January: Worked on coding the project
 
 
-## Known Issues
+## API
+We use the Amadeus for Developers API.
+Because we only use the free version (Self-Service-API) we can’t use all features of the API.
+We planned to use the activity call and get data like the following example (from Postman):
+    {
+        "type": "activity",
+        "id": "6378382",
+        "self": {
+            "href": "https://test.api.amadeus.com/v1/shopping/activities/6378382",
+            "methods": [
+                "GET"
+            ]
+        },
+        "name": "A Night of White Truffles Supper Club",
+        "description": "Join the latest culinary trend of immersive and social dining where local hosts invite you into their homes for a magical meal.<br><br>The White Truffle, considered the diamond of the culinary world, was placed 4th on a list of the travel article \"25 things to eat before you die.\" Festin Supper Club presents dishes carefully created to compliment the distinct flavour of white truffles! This will be a fusion menu which will include many other flavors as well. * Dinners have different hosts at hand-picked, secret locations throughout city center. *And dishes vary by season - you can always ask for details of specific dates.",
+        "geoCode": {
+            "latitude": 52.51714834905604,
+            "longitude": 13.387748342746834
+        },
+        "price": {
+            "amount": "78.0",
+            "currencyCode": "EUR"
+        },
+        "pictures": [
+            Links of Pictures
+        ],
+        "bookingLink": "https://vizeater.co/events/30625?utm_source=amadeus-1381",
+        "minimumDuration": "3 hours"
+    },
 
-  TODO: Document any known issues or bugs in the project.
+But instead of this data we only get data like the following example (from Postman):
+    "data": [
+        {
+            "type": "location",
+            "subType": "POINT_OF_INTEREST",
+            "id": "5A92DF1C00",
+            "self": {
+                "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/5A92DF1C00",
+                "methods": [
+                    "GET"
+                ]
+            },
+            "geoCode": {
+                "latitude": 52.51915,
+                "longitude": 13.401107
+            },
+            "name": "Berliner Dom",
+            "category": "SIGHTS",
+            "rank": 5,
+            "tags": [
+                "church",
+                "sightseeing",
+                "temple",
+                "restaurant",
+                "tourguide",
+                "landmark",
+                "sights",
+                "attraction",
+                "commercialplace",
+                "activities",
+                "professionalservices"
+            ]
+        }
+
+Because of this we made the decision to use the tags instead of the description, generate pictures for each category and use this pictures instead of a picture of the links and don’t add the price and the booking link to the activity. Another problem of the API in Kotlin is that you don’t get the ranking of the activities, so we created a random rank to each item. It was also only possible to call 10 actives per location. The Service-API-Service has only access to a few location (Berlin and Paris are available).
+
+If we would publish the app, we would use the Enterprise API to have the best user experience.
+
 
 
 ## Future Enhancements
