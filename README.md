@@ -3,7 +3,7 @@
 
 # **Nirvana**
 
-The Nirvana App is designed to be a travel companion for planning and exploration. Whether you're currently travelling or you want to plan your vacation, our app aims to enhance your travel experience by providing insights and recommendations.
+The Nirvana app is designed to be a travel companion for planning and exploration. Whether you're currently travelling or you want to plan your vacation, our app aims to enhance your travel experience by providing insights and recommendations.
 
 
 ## Contributions
@@ -12,18 +12,16 @@ The Nirvana App is designed to be a travel companion for planning and exploratio
    * Worked on the API
   
    * Worked on the backend for:
-   * Home
-     * Get current location
-     * Get nearby sights, restaurants, and shopping options
-     * Get location details
-   * Profile 
-   * Settings
-   * Exploring View
-   * Recommendation
+     * Home
+       * Get current location
+       * Get nearby sights, restaurants and shopping options
+       * Get their location details
+     * Profile 
+     * Settings
+     * Exploring
+     * Recommendation
 
 * **Alea**:
-   * Created the Mockup
-  
    * Worked on the frontend for:
      * Start
      * Sign Up
@@ -31,7 +29,7 @@ The Nirvana App is designed to be a travel companion for planning and exploratio
      * Home
      * Profile
      * Settings
-     * Exploring View
+     * Exploring
      * Recommendation
      
    * Created the bottom navigation bar including the navigation between the different views
@@ -40,7 +38,7 @@ The Nirvana App is designed to be a travel companion for planning and exploratio
        * Sign Up
        * Log In
 
-All in all, we worked together on the project , put the same time and effort in and helped each other out when we had problems.
+All in all, we put the same amount of time and effort in and helped each other out when we had problems.
 
 
 ## Features
@@ -71,10 +69,10 @@ All in all, we worked together on the project , put the same time and effort in 
 
 
 ## API
-We use the Amadeus for Developers API.
-Because we only use the free version (Self-Service-API) we can’t use all features of the API.
-We planned to use the activity call and get data like the following example (from Postman):
-    {
+We use the Amadeus for Developers API. <br>
+Because we only use the free version (Self-Service-API) we can’t use all features of the API. <br>
+We planned to use the activity call and get data like the following example (from Postman): <br>
+    `{
         "type": "activity",
         "id": "6378382",
         "self": {
@@ -98,10 +96,10 @@ We planned to use the activity call and get data like the following example (fro
         ],
         "bookingLink": "https://vizeater.co/events/30625?utm_source=amadeus-1381",
         "minimumDuration": "3 hours"
-    },
-
-But instead of this data we only get data like the following example (from Postman):
-    "data": [
+    },`
+<br>
+But instead of this data we only get data like the following example (from Postman):<br>
+    `"data": [
         {
             "type": "location",
             "subType": "POINT_OF_INTEREST",
@@ -132,10 +130,10 @@ But instead of this data we only get data like the following example (from Postm
                 "activities",
                 "professionalservices"
             ]
-        }
+        }`
 
-Because of this we made the decision to use the tags instead of the description, generate pictures for each category and use this pictures instead of a picture of the links and don’t add the price and the booking link to the activity. Another problem of the API in Kotlin is that you don’t get the ranking of the activities, so we created a random rank to each item. It was also only possible to call 10 actives per location. The Service-API-Service has only access to a few location (Berlin and Paris are available).
-
+Because of this we made the decision to use the tags instead of the description, generate pictures for each category and use this pictures instead of a picture of the links and don’t add the price and the booking link to the activity. Another problem of the API in Kotlin is that you don’t get the ranking of the activities, so we created a random rank to each item. It was also only possible to call 10 actives per location. The Service-API-Service has only access to a few location (Berlin and Paris are available).<br>
+<br>
 If we would publish the app, we would use the Enterprise API to have the best user experience.
 
 
