@@ -82,7 +82,7 @@ We planned to use the activity call and get data like the following example (fro
             ] <br>
         }, <br>
         "name": "A Night of White Truffles Supper Club", <br>
-        "description": "Join the latest culinary trend of immersive and social dining where local hosts invite you into their homes for a magical meal.<br><br>The White Truffle, considered the diamond of the culinary world, was placed 4th on a list of the travel article _"25 things to eat before you die."_ Festin Supper Club presents dishes carefully created to compliment the distinct flavour of white truffles! This will be a fusion menu which will include many other flavors as well. *Dinners have different hosts at hand-picked, secret locations throughout city center.* And dishes vary by season - you can always ask for details of specific dates.", <br>
+        "description": "Join the latest culinary trend of immersive and social dining where local hosts invite you into their homes for a magical meal.<br>The White Truffle, considered the diamond of the culinary world, was placed 4th on a list of the travel article _"25 things to eat before you die."_ Festin Supper Club presents dishes carefully created to compliment the distinct flavour of white truffles! This will be a fusion menu which will include many other flavors as well. *Dinners have different hosts at hand-picked, secret locations throughout city center.* And dishes vary by season - you can always ask for details of specific dates.", <br>
         "geoCode": { <br>
             "latitude": 52.51714834905604, <br>
             "longitude": 13.387748342746834 <br>
