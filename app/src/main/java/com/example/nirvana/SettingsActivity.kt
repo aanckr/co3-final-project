@@ -1,8 +1,13 @@
 package com.example.nirvana
 
 import android.Manifest
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -10,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.nirvana.databinding.ActivitySettingsBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.Calendar
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
@@ -62,6 +68,11 @@ class SettingsActivity : AppCompatActivity() {
             binding.locationSwitch.isChecked = isLocationPermissionGranted()
         }
 
+        binding.notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
+            scheduleFridayNotification(isChecked)
+        }
+
+
     }
     private fun isLocationPermissionGranted() = ContextCompat.checkSelfPermission(
         this, Manifest.permission.ACCESS_COARSE_LOCATION
@@ -74,4 +85,48 @@ class SettingsActivity : AppCompatActivity() {
             binding.locationSwitch.isChecked = grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
         }
     }
+    private fun scheduleFridayNotification(enable: Boolean) {
+        if (enable && !isExactAlarmPermissionGranted()) {
+            requestExactAlarmPermission()
+            return
+        }
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, NotificationReceiver::class.java)
+
+        val pendingIntentFlag =
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, pendingIntentFlag)
+
+        if (enable) {
+            val calendar = Calendar.getInstance().apply {
+                set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
+                set(Calendar.HOUR_OF_DAY, 12)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+            }
+
+            if (calendar.timeInMillis <= System.currentTimeMillis()) { calendar.add(Calendar.DAY_OF_YEAR, 7)
+            }
+            alarmManager.setExact(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                pendingIntent
+            )
+        } else {
+            alarmManager.cancel(pendingIntent)
+        }
+    }
+    private fun isExactAlarmPermissionGranted(): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return getSystemService(AlarmManager::class.java).canScheduleExactAlarms()
+        }
+        return true
+    }
+
+    private fun requestExactAlarmPermission() {
+        val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+        startActivity(intent)
+    }
+
 }
