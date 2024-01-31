@@ -65,7 +65,7 @@ All in all, we put the same amount of time and effort in and helped each other o
 * October: Came up with a project idea
 * November: Started to design our mockup (_Nirvana.fig_ in our project folder)
 * December: _Because of exams and christmas break, we didn't work on the project_
-* January: Worked on coding the project
+* January: Coded the whole project
 
 
 ## API
