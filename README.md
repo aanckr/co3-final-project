@@ -34,11 +34,13 @@ The Nirvana App is designed to be a travel companion for planning and exploratio
      * Exploring View
      * Recommendation
      
-     * Created the bottom navigation bar including the navigation between the different views
+   * Created the bottom navigation bar including the navigation between the different views
      
      * Worked on the backend for:
        * Sign Up
        * Log In
+
+All in all, we worked together on the project , put the same time and effort in and helped each other out when we had problems.
 
 
 ## Features
